@@ -3,6 +3,7 @@ const videoEl = document.getElementById("camera-video");
 let captureStream = null;
 
 function updateCameras(cameraList) {
+    // TODO: Safari won't show all cameras until permission is already granted
     console.log("Got camera list:", cameraList);
     cameraList.forEach(function (camera, i) {
         if (camera.kind === "videoinput") {
@@ -23,15 +24,15 @@ async function startCapture(event) {
                 exact: deviceId
             },
             advanced: [
-      { width: { exact: 2560 } },
-      { width: { exact: 1920 } },
-      { width: { exact: 1280 } },
-      { width: { exact: 1024 } },
-      { width: { exact: 900 } },
-      { width: { exact: 800 } },
-      { width: { exact: 640 } },
-      { width: { exact: 320 } }
-    ]
+                { width: { exact: 2560 } },
+                { width: { exact: 1920 } },
+                { width: { exact: 1280 } },
+                { width: { exact: 1024 } },
+                { width: { exact: 900 } },
+                { width: { exact: 800 } },
+                { width: { exact: 640 } },
+                { width: { exact: 320 } }
+            ]
         },
         audio: false
     }
@@ -40,8 +41,7 @@ async function startCapture(event) {
         alert('There was an error!');
     }
     videoEl.srcObject = captureStream;
-    videoEl.classList.remove("d-none")
-    videoEl.play();
+    videoEl.classList.remove("d-none");
 }
 
 cameraSelect.addEventListener("change", function (event) {
