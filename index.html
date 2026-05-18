@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Preview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <style>
+        #camera-video {
+            width: 100%;
+            height: 100vh;
+            z-index: 5;
+            background: #000;
+        }
+        #camera-select {
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 100vh; z-index: 1;">
+        <button type="button" class="btn btn-primary btn-lg shadow mb-3" id="start-camera-btn">Get camera list</button>
+        <div>
+            This is <a href="https://github.com/corbindavenport/camera-preview" target="_blank">open-source on GitHub</a>
+        </div>
+    </div>
+
+    <video id="camera-video" class="d-none fixed-top"></video>
+
+    <div class="container fixed-bottom d-flex justify-content-center mb-3" style="z-index: 10;">
+        <select class="form-select d-none shadow" aria-label="Select camera" id="camera-select">
+            <option selected disabled>Select camera...</option>
+        </select>
+    </div>
+
+</div>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
