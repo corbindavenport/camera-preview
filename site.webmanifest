@@ -1,0 +1,33 @@
+{
+    "name": "Camera Preview",
+    "short_name": "Camera Preview",
+    "description": "Show a preview of your camera or capture card.",
+    "icons": [
+        {
+            "src": "img/icon_x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "img/icon_x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "img/maskable_icon_x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "img/maskable_icon_x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "theme_color": "#e9ecef",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "start_url": "/?utm_source=Installed%20App&utm_medium=App%20Launch"
+}

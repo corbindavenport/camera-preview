@@ -83,5 +83,12 @@ document.getElementById("fullscreen-btn").addEventListener("click", function() {
     videoEl.requestFullscreen();
 })
 
+document.getElementById("new-window-btn").addEventListener("click", function() {
+    const targetUrl = new URL(document.location);
+    targetUrl.searchParams.set("utm_source", "Installed App");
+    targetUrl.searchParams.set("utm_medium", "New Window Button");
+    window.open(targetUrl.href, "new-window", "width=1280,height=720");
+})
+
 // Try to automatically start camera capture
 startCapture();
