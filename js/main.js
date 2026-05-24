@@ -1,5 +1,6 @@
 const cameraSelect = document.getElementById("camera-select");
 const videoEl = document.getElementById("camera-video");
+const permissionEl = document.getElementById("camera-permission-alert");
 let captureStream = null;
 const defaultCameraConstraints = {
     video: {
@@ -56,22 +57,33 @@ async function startCapture(deviceId = null) {
             exact: deviceId
         }
     }
-    captureStream = await navigator.mediaDevices.getUserMedia(cameraConstraints);
-    if (!captureStream) {
-        alert('There was an error!');
-    }
-    videoEl.srcObject = captureStream;
-    videoEl.classList.remove("d-none");
-    if (captureStream?.getVideoTracks()[0]) {
-        const cameraProperties = captureStream.getVideoTracks()[0].getSettings();
-        console.log("Camera properties:", cameraProperties);
-        document.getElementById("camera-info").innerText = `${cameraProperties.width} × ${cameraProperties.height} (${Math.round(cameraProperties.frameRate)} FPS)`
-    }
-    // Update list of cameras
-    navigator.mediaDevices.enumerateDevices()
-        .then(updateCameras)
-        .catch(function (error) {
-            console.error(error);
+    // Get camera video stream
+    navigator.mediaDevices.getUserMedia(cameraConstraints)
+        .then(function (stream) {
+            captureStream = stream;
+            videoEl.srcObject = captureStream;
+            videoEl.classList.remove("d-none");
+            if (captureStream?.getVideoTracks()[0]) {
+                const cameraProperties = captureStream.getVideoTracks()[0].getSettings();
+                console.log("Camera properties:", cameraProperties);
+                document.title = `${captureStream.getVideoTracks()[0].label} - ${cameraProperties.width} × ${cameraProperties.height} - ${Math.round(cameraProperties.frameRate)} FPS`
+            }
+            // Update list of cameras
+            navigator.mediaDevices.enumerateDevices()
+                .then(updateCameras)
+                .catch(function (error) {
+                    console.error(error);
+                });
+        })
+        .catch(async function (error) {
+            // Show errror
+            console.error("Error accessing media devices:", error);
+            permissionEl.classList.remove("d-none");
+            // Wait for camera permission to be granted, then try again
+            const status = await navigator.permissions.query({ name: "camera" });
+            status.addEventListener("change", function (event) {
+                startCapture();
+            }, { once: true });
         });
 }
 
@@ -79,11 +91,11 @@ cameraSelect.addEventListener("change", function (event) {
     startCapture(event.target.value);
 });
 
-document.getElementById("fullscreen-btn").addEventListener("click", function() {
+document.getElementById("fullscreen-btn").addEventListener("click", function () {
     videoEl.requestFullscreen();
 })
 
-document.getElementById("new-window-btn").addEventListener("click", function() {
+document.getElementById("new-window-btn").addEventListener("click", function () {
     const targetUrl = new URL(document.location);
     targetUrl.searchParams.set("utm_source", "Installed App");
     targetUrl.searchParams.set("utm_medium", "New Window Button");

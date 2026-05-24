@@ -25,54 +25,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="/js/dark.js"></script>
-    <style>
-        #camera-video {
-            width: 100%;
-            height: 100vh;
-            z-index: 5;
-            background: #000;
-        }
-
-        #camera-tools {
-            background: rgba(250, 250, 252, 0.8);
-            backdrop-filter: blur(14px);
-            opacity: 0;
-            visibility: hidden;
-            transition-property: opacity, visibility;
-            transition-duration: 0.5s;
-            transition-delay: 1s;
-        }
-
-        body:hover #camera-tools {
-            opacity: 1;
-            visibility: visible;
-            transition-delay: 0s;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            #camera-tools {
-                background: rgba(22, 22, 23, 0.8);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="custom.css">
 </head>
 
 <body>
 
-    <div class="container-fluid d-flex flex-column align-items-center justify-content-center" style="height: 100vh; z-index: 1;">
-        <button type="button" class="btn btn-primary btn-lg shadow mb-3" id="start-camera-btn">Start camera</button>
-        <div>
-            This is <a href="https://github.com/corbindavenport/camera-preview" target="_blank">open-source on GitHub</a>
-        </div>
-    </div>
-
-    <video id="camera-video" muted autoplay playsinline disablepictureinpicture controlsList="nodownload,noremoteplayback" class="d-none fixed-top"></video>
-
-    <div class="container fixed-bottom mb-3" style="z-index: 10;">
-        <div id="camera-tools" class="card shadow p-1">
-            <div class="row m-0">
-                <div id="camera-info" class="col-4 d-flex flex-column justify-content-center text-center">
-                    <!-- Todo -->
+    <!-- Top navigation -->
+    <nav id="main-nav" class="navbar navbar-expand-lg fixed-top bg-glass border-bottom">
+        <div class="container-fluid">
+            <div class="row w-100 m-0 p-0">
+                <div class="col-4 d-flex flex-column justify-content-center">
+                    <span class="navbar-brand">Camera Preview</span>
                 </div>
                 <div class="col-4">
                     <select class="form-select w-100" aria-label="Select camera" id="camera-select">
@@ -81,7 +44,7 @@
                 </div>
                 <!-- Fullscreen button -->
                 <div class="col-2 text-center">
-                    <button id="fullscreen-btn" type="button" class="btn btn-secondary">
+                    <button id="fullscreen-btn" type="button" class="btn btn-secondary w-100">
                         <i class="bi bi-arrows-fullscreen"></i>
                         <span class="d-none d-lg-inline-block ms-2">
                             Fullscreen
@@ -90,7 +53,7 @@
                 </div>
                 <!-- New window button -->
                 <div class="col-2 text-center">
-                    <button id="new-window-btn" type="button" class="btn btn-secondary">
+                    <button id="new-window-btn" type="button" class="btn btn-secondary w-100">
                         <i class="bi bi-plus-circle-fill"></i>
                         <span class="d-none d-lg-inline-block ms-2">
                             New view
@@ -99,9 +62,16 @@
                 </div>
             </div>
         </div>
+    </nav>
+
+    <div id="splash-container" class="container-fluid d-flex flex-column align-items-center justify-content-center">
+        <div id="camera-permission-alert" class="alert alert-warning d-none" role="alert">
+            Please allow the Camera permission in your web browser to see the camera feed. 
+        </div>
+        <p>This is <a href="https://github.com/corbindavenport/camera-preview" target="_blank">open-source on GitHub</a>.</p>
     </div>
 
-    </div>
+    <video id="camera-video" muted autoplay playsinline disablepictureinpicture controlsList="nodownload,noremoteplayback" class="d-none fixed-top"></video>
 
     <script src="js/main.js"></script>
 
